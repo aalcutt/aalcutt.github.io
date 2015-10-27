@@ -1,9 +1,17 @@
-function HTMLActuator(){
+function HTMLActuator(options){
+  options = options || {}
   this.tileContainer = $('.tile-container');
   this.scoreContainer = $('.score-container');
   this.messageContainer = $(".game-message");
 
   this.score = 0;
+
+  if(options.puzzleMode){
+    this.nextLevelContainer = $('.next-level');
+    this.targetScore = options.level.targetScore;
+    this.targetScoreContainer = $(".target-score-container")
+  }
+
 }
 
 HTMLActuator.prototype.actuate = function(grid, meta){
@@ -14,15 +22,14 @@ HTMLActuator.prototype.actuate = function(grid, meta){
 
     var s = "<table>";
 
-    for(var y = 0; y < grid.size; y++){
+    for(var x = 0; x < grid.size; x++){
         s += "<tr>"
-      for(var x = 0; x < grid.size; x++){
+      for(var y = 0; y < grid.size; y++){
         var cell = grid.cells[x][y];
         if(cell){
           s += "<td class='tile' x='{x}' y='{y}'>{0}{1}</td>"
             .replace("{0}", cell.value)
             .replace("{1}", self.getArrow(cell.direction))
-            //.replace("{3}", self.getArrowClass(cell.direction))
             .replace("{x}", cell.x).replace("{y}", cell.y)
         }
         else{
@@ -36,13 +43,23 @@ HTMLActuator.prototype.actuate = function(grid, meta){
     self.tileContainer.append(s);
   });
 
-  self.updateScore(meta.score);
+  self.updateScore(meta.score, meta.targetScore);
 
   if(meta.over){
-    self.message(false);
+    if(meta.puzzleMode){
+      if(meta.won)
+      {
+        self.nextLevelContainer.show();
+        self.message(true)
+      }
+      else{
+        self.message(false)
+      }
+    }
+    else{
+        self.message(false);
+    }
   }
-
-
 }
 
 HTMLActuator.prototype.clearContainer = function (container) {
@@ -76,11 +93,18 @@ HTMLActuator.prototype.addTile = function (tile) {
   this.tileContainer.append(wrapper);
 }
 
-HTMLActuator.prototype.updateScore = function(score){
+HTMLActuator.prototype.updateScore = function(score, targetScore){
   this.clearContainer(this.scoreContainer);
   this.score = score;
-
   this.scoreContainer.text(score);
+
+  if(targetScore){
+
+    this.targetScore = targetScore;
+    this.clearContainer(this.targetScoreContainer)
+    this.targetScoreContainer.text(targetScore);
+    this.targetScoreContainer.css('display', 'inline-block');
+  }
 }
 
 HTMLActuator.prototype.message = function(won){
@@ -95,3 +119,7 @@ HTMLActuator.prototype.clearMessage = function () {
   this.messageContainer.removeClass("game-won");
   this.messageContainer.removeClass("game-over");
 };
+
+HTMLActuator.prototype.clearNextlevel = function(){
+  this.nextLevelContainer.hide();
+}

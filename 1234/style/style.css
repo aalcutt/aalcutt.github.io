@@ -30,7 +30,7 @@
   position:absolute;
   left:1;
 }
-.score-container{
+.score-container, .target-score-container{
   position:relative;
   display:inline-block;
   padding:15px 25px;
@@ -42,7 +42,7 @@
 .score-container:after{
   content: "Score"
 }
-.score-container:after{
+.score-container:after, .target-score-container:after{
   position:absolute;
   width:100%;
   top: 10px;
@@ -52,17 +52,28 @@
   text-align:center;
   line-height:13px;
 }
+.target-score-container{
+  display:none;
+}
+.target-score-container:after{
+  content: "Target"
+}
 .game-message{
   display:none;
   position:absolute;
   top:0;
   right:0;
   bottom:0;
-  left:110px;
+  left:275px;
   z-index:100;
   text-align:center;
   width:100px;
+  height:100px;
 }
-.game-message.game-over{
+.game-message.game-over, .game-message.game-won{
   display:block;
+}
+
+.next-level{
+  display:none;
 }
