@@ -2,6 +2,7 @@
 <head>
   <title>1234</title>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
   <link rel="stylesheet" href="style/style.css" />
 
 
@@ -14,38 +15,40 @@
 
 <head>
   <body>
-    <div class="score-container">0</div>
-    <div class="target-score-container">0</div>
-    <div class="above-game">
-      <a class="restart-button random-mode">New Game</a>
-      <a class="puzzle-mode">Puzzle Mode</a>
-      <a class="next-level">Next Level</a>
-    </div>
-    <div class="game-container">
-      <div class="game-message">
-        <p></p>
-        <div class="lower">
-          <a class="restart-button">Try again</a>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="score-container-top">
+            Score
+            <div class="score-container">0</div>
+          </div>
+          <div class="target-score-container" style="display:none">0</div>
+        </div>
+          <div class="above-game row">
+            <span class="restart-button random-mode btn btn-default">New Game</span>
+            <a class="puzzle-mode" style="display:none">Puzzle Mode</a>
+            <a class="next-level">Next Level</a>
+          </div>
+
+          <div class="game-container row">
+              <div class="game-message">
+                <p></p>
+                <div class="lower">
+                  <span class="restart-button btn btn-default btn-lg">Try again</span>
+                </div>
+              </div>
+              <div class="tile-container"></div>
+          </div>
+
+          <div class="help-container container-fluid">
+            <p>
+              <strong>How to play:</strong> Tiles consist of a point value and a direction.
+              Clicking a tile rewards the number of points shown, but will eliminate that number
+              of tiles from play in the direction shown. Try to get as many points as possible!
+            </p>
+          </div>
         </div>
       </div>
-      <div class="tile-container"></div>
     </div>
-    <div class="help-container">
-      <ul>
-        <li>
-          Tiles consist of a point value and a direction.
-        </li>
-        <li>
-          Clicking a tile rewards the number of points shown and eliminates that number of tiles from play in that direction.
-        </li>
-        <li>
-          Try to score as many points as possible!
-        </li>
-        <li>
-          Puzzle mode is a work in progress.
-        </li>
-      </ul>
-    </div>
-
   </body>
 </html>
