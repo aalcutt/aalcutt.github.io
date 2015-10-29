@@ -1,6 +1,7 @@
 body{
   font-family:Arial, sans-serif;
   font-size:16px;
+  background-color:#F6F6F6;
 }
 .wrapper{
   margin-left:auto;
@@ -9,6 +10,9 @@ body{
 }
 .game-container{
   position:relative;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#dddfdd;
 }
 .tile-container table td{
   border:1px solid black;
@@ -74,4 +78,15 @@ body{
 }
 .next-level{
   display:none;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.game-message .lower strong{
+  color:#0f0;
 }

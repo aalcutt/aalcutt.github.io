@@ -1,6 +1,8 @@
 var g;
+var solver;
 $(function(){
-  g = new Game({size: 8, actuator: new HTMLActuator()})
+  g = new Game({size: 8, actuator: new HTMLActuator(), solver: new Solver()});
+
   $('.tile-container').on('click', '.tile', function(){
     var x = $(this).attr('x');
     var y = $(this).attr('y');
@@ -22,6 +24,8 @@ $(function(){
     var level = levels[currentLevel];
     g.setupLevel(level);
   });
+
+  
 });
 
 var currentLevel = 1;
@@ -53,6 +57,10 @@ var levelData = [
     ["2d", "1d", "2u", "1r"],
     ["1r", "2u", "2l", "2l"],
     ["3u", "3r", "1d", "2l"]
+  ],
+  [
+    ["1r","2l"],
+    ["1r", "2l"]
   ]
 ];
 
@@ -61,11 +69,21 @@ var levels = {
   2: {size: 3, targetScore: 10, levelData: levelData[2]},
   3: {size: 3, targetScore: 9, levelData: levelData[3]},
   4: {size: 3, targetScore: 12, levelData: levelData[4]},
-  5: {size: 4, targetScore: 17, levelData: levelData[5]}
+  5: {size: 4, targetScore: 17, levelData: levelData[5]},
+  6: {size: 2, targetScore: 2, levelData: levelData[6]}
 }
 
 function LoadLevel(n){
   currentLevel = n;
   var level = levels[n];
   g.setupLevel(level);
+}
+
+function Solve(){
+  var solver = new Solver();
+  //g.setupLevel(levels[6])
+  var score = solver.solve(g, 0);
+  console.log("max for this grid: " + score);
+
+  console.log("max on board: " + solver.maxOnBoard(g))
 }

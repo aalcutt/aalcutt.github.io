@@ -3,6 +3,7 @@ function Game(options){
   this.actuator = options.actuator;
   this.directions = ['left', 'right', 'up', 'down'];
   this.score = 0;
+  this.solver = options.solver;
 
   if(options.puzzleMode){
     this.puzzleMode = true;
@@ -12,7 +13,6 @@ function Game(options){
   else{
       this.setup();
   }
-
 }
 
 Game.prototype.restart = function(){
@@ -29,6 +29,10 @@ Game.prototype.setup = function(){
   this.score = 0;
   this.grid = new Grid(this.size);
   this.addStartTiles();
+
+  if(this.solver){
+    this.maxScore = this.solver.solve(this, 0);
+  }
   this.actuate();
 }
 
@@ -77,12 +81,14 @@ Game.prototype.actuate = function(){
       this.won = false;
     }
   }
+
   this.actuator.actuate(this.grid, {
     score: this.score,
     over: this.over,
     won: this.won,
     puzzleMode: this.puzzleMode,
-    targetScore: this.targetScore
+    targetScore: this.targetScore,
+    maxScore: this.maxScore
   });
 }
 

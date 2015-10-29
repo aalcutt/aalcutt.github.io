@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>1234</title>
-
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
   <link rel="stylesheet" href="style/style.css" />
 
@@ -11,7 +11,9 @@
   <script type="text/javascript" src="js/tile.js"></script>
   <script type="text/javascript" src="js/grid.js"></script>
   <script type="text/javascript" src="js/actuator.js"></script>
+  <script type="text/javascript" src="js/nullActuator.js"></script>
   <script type="text/javascript" src="js/game.js"></script>
+  <script type="text/javascript" src="js/solver.js"></script>
 
 <head>
   <body>
@@ -34,10 +36,12 @@
               <div class="game-message">
                 <p></p>
                 <div class="lower">
-                  <span class="restart-button btn btn-default btn-lg">Try again</span>
+                  <div class="score"></div>
+                  <div class="max-score"></div>
+                  <span class="restart-button btn btn-default btn-lg">New Game</span>
                 </div>
               </div>
-              <div class="tile-container"></div>
+              <div class="tile-container noselect"></div>
           </div>
 
           <div class="help-container container-fluid">

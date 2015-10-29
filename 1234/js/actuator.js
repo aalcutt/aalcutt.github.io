@@ -3,13 +3,14 @@ function HTMLActuator(options){
   this.tileContainer = $('.tile-container');
   this.scoreContainer = $('.score-container');
   this.messageContainer = $(".game-message");
-
+  this.nextLevelContainer = $('.next-level');
+  this.targetScoreContainer = $(".target-score-container")
   this.score = 0;
 
   if(options.puzzleMode){
-    this.nextLevelContainer = $('.next-level');
+
     this.targetScore = options.level.targetScore;
-    this.targetScoreContainer = $(".target-score-container")
+
   }
 
 }
@@ -57,7 +58,14 @@ HTMLActuator.prototype.actuate = function(grid, meta){
       }
     }
     else{
-        self.message(false);
+        self.score = meta.score;
+        self.maxScore = meta.maxScore;
+        if(self.score == self.maxScore){
+          self.message(true);
+        }
+        else{
+          self.message(false);
+        }
     }
   }
 }
@@ -112,6 +120,8 @@ HTMLActuator.prototype.message = function(won){
   var message = won ? "You win!" : "Game over!";
   this.messageContainer.addClass(type);
   this.messageContainer.find('p').text(message);
+  this.messageContainer.find('.score').html("Your score: <strong> " + this.score + "</strong>");
+  this.messageContainer.find('.max-score').html("Max score for puzzle: <strong> " + this.maxScore + "</strong>");
 }
 
 HTMLActuator.prototype.clearMessage = function () {
