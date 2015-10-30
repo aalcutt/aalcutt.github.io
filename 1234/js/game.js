@@ -26,13 +26,10 @@ Game.prototype.restart = function(){
 
 }
 Game.prototype.setup = function(){
+  //Math.seedrandom(new Date().toDateString());
   this.score = 0;
   this.grid = new Grid(this.size);
   this.addStartTiles();
-
-  if(this.solver){
-    this.maxScore = this.solver.solve(this, 0);
-  }
   this.actuate();
 }
 
@@ -57,6 +54,7 @@ Game.prototype.addStartTiles = function(){
 }
 
 Game.prototype.randomTile = function(x, y){
+
   var v = Math.floor((Math.random() * 4) + 1);
   var rD = Math.floor((Math.random() * 4));
   var direction = this.directions[rD];

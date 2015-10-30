@@ -1,4 +1,5 @@
 function Tile(position, value, direction) {
+  this.position = position;
   this.x                = position.x;
   this.y                = position.y;
   this.value            = value;

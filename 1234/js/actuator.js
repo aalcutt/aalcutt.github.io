@@ -119,9 +119,9 @@ HTMLActuator.prototype.message = function(won){
   var type = won ? "game-won" : "game-over";
   var message = won ? "You win!" : "Game over!";
   this.messageContainer.addClass(type);
-  this.messageContainer.find('p').text(message);
+  //this.messageContainer.find('p').text(message);
   this.messageContainer.find('.score').html("Your score: <strong> " + this.score + "</strong>");
-  this.messageContainer.find('.max-score').html("Max score for puzzle: <strong> " + this.maxScore + "</strong>");
+  //this.messageContainer.find('.max-score').html("Max score for puzzle: <strong> " + this.maxScore + "</strong>");
 }
 
 HTMLActuator.prototype.clearMessage = function () {

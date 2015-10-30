@@ -1,7 +1,7 @@
 var g;
 var solver;
 $(function(){
-  g = new Game({size: 8, actuator: new HTMLActuator(), solver: new Solver()});
+  g = new Game({size: 8, actuator: new HTMLActuator()});
 
   $('.tile-container').on('click', '.tile', function(){
     var x = $(this).attr('x');
@@ -25,7 +25,7 @@ $(function(){
     g.setupLevel(level);
   });
 
-  
+
 });
 
 var currentLevel = 1;
@@ -80,10 +80,13 @@ function LoadLevel(n){
 }
 
 function Solve(){
-  var solver = new Solver();
-  //g.setupLevel(levels[6])
-  var score = solver.solve(g, 0);
-  console.log("max for this grid: " + score);
+  var solver = new Solver(g);
+  //var level = levels[5]
+  //g = new Game({puzzleMode: true, size: level.size, level: level, actuator: new HTMLActuator({puzzleMode: true, level: level})});
+  //g.setupLevel(level)
+  var solved = solver.solve(g, {maxScore: 0, moves: []});
+  console.log("max for this grid: " + solved.maxScore);
+  console.log(solved)
 
   console.log("max on board: " + solver.maxOnBoard(g))
 }
