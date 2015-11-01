@@ -7,6 +7,7 @@ body{
   margin-left:auto;
   margin-right:auto;
   width:650px;
+  margin-top:20px;
 }
 .game-container{
   position:relative;
@@ -53,9 +54,9 @@ body{
   top:23px;
 }
 .title{
-  font-size:32px;
+  font-size:60px;
+  font-weight:bold;
   float:left;
-  margin-top:5px;
 }
 .score-container-top{
   text-align:center;
@@ -101,4 +102,10 @@ body{
 }
 .game-message .lower strong{
   color:#0f0;
+}
+.score-amazing, .score-great, .score-average, .score-bad{
+  display:none;
+}
+.above-game .restart-button{
+  float:right;
 }

@@ -11,12 +11,11 @@ $(function(){
   });
 
   $('.restart-button').click(function(){
-    g.restart();
+    g.newGame();
   });
 
-  $('.puzzle-mode').click(function(){
-    var level = levels[currentLevel];
-    g = new Game({puzzleMode: true, size: level.size, level: level, actuator: new HTMLActuator({puzzleMode: true, level: level})});
+  $('.tryagain-button').click(function(){
+    g.restart();
   });
 
   $('.next-level').click(function(){

@@ -117,11 +117,20 @@ HTMLActuator.prototype.updateScore = function(score, targetScore){
 
 HTMLActuator.prototype.message = function(won){
   var type = won ? "game-won" : "game-over";
-  var message = won ? "You win!" : "Game over!";
+  var message =  "Better luck next time";
+  if(this.score <= 52){
+    message = "Amazing!";
+  }
+  else if (this.score >= 53 && this.score <= 60){
+    message = "Great!";
+  }
+  else if(this.score >= 61 && this.score <= 65){
+    message = "Average";
+  }
+
   this.messageContainer.addClass(type);
-  //this.messageContainer.find('p').text(message);
+  this.messageContainer.find('p').text(message);
   this.messageContainer.find('.score').html("Your score: <strong> " + this.score + "</strong>");
-  //this.messageContainer.find('.max-score').html("Max score for puzzle: <strong> " + this.maxScore + "</strong>");
 }
 
 HTMLActuator.prototype.clearMessage = function () {

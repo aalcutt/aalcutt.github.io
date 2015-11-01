@@ -4,29 +4,23 @@ function Game(options){
   this.directions = ['left', 'right', 'up', 'down'];
   this.score = 0;
   this.solver = options.solver;
+  this.setup();
+  this.savedGrid = this.grid.serialize();
+}
 
-  if(options.puzzleMode){
-    this.puzzleMode = true;
-    this.level = options.level;
-    this.setupLevel(this.level);
-  }
-  else{
-      this.setup();
-  }
+Game.prototype.newGame = function(){
+  this.actuator.clearMessage();
+  this.setup();
+  this.savedGrid = this.grid.serialize();
 }
 
 Game.prototype.restart = function(){
   this.actuator.clearMessage();
-  if(this.puzzleMode){
-    this.setupLevel(this.level)
-  }
-  else{
-      this.setup();
-  }
-
+  this.setup();
+  this.grid.cells = this.grid.fromState(this.savedGrid.cells);
 }
-Game.prototype.setup = function(){
-  //Math.seedrandom(new Date().toDateString());
+Game.prototype.setup = function(seed){
+
   this.score = 0;
   this.grid = new Grid(this.size);
   this.addStartTiles();
