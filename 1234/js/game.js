@@ -14,13 +14,24 @@ Game.prototype.newGame = function(){
   this.savedGrid = this.grid.serialize();
 }
 
+Game.prototype.newSeededPuzzle = function(seed){
+  this.actuator.clearMessage();
+  this.setup(seed);
+  this.savedGrid = this.grid.serialize();
+}
+
 Game.prototype.restart = function(){
   this.actuator.clearMessage();
   this.setup();
   this.grid.cells = this.grid.fromState(this.savedGrid.cells);
 }
 Game.prototype.setup = function(seed){
-
+  if(seed){
+    Math.seedrandom(seed);
+  }
+  else{
+    Math.seedrandom();
+  }
   this.score = 0;
   this.grid = new Grid(this.size);
   this.addStartTiles();

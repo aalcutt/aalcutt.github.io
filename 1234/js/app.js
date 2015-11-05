@@ -1,8 +1,9 @@
 var g;
 var solver;
 $(function(){
+  var d = new Date();
   g = new Game({size: 8, actuator: new HTMLActuator()});
-
+  g.newSeededPuzzle(d.toDateString());
   $('.tile-container').on('click', '.tile', function(){
     var x = $(this).attr('x');
     var y = $(this).attr('y');
@@ -10,12 +11,21 @@ $(function(){
     g.moveTile(tile);
   });
 
-  $('.restart-button').click(function(){
+  $('.above-game .randompuzzle-button').click(function(){
+    $(this).addClass('active');
+    $('.todayspuzzle-button').removeClass('active')
     g.newGame();
   });
 
   $('.tryagain-button').click(function(){
     g.restart();
+  });
+
+  $('.todayspuzzle-button').click(function(){
+
+    g.newSeededPuzzle(d.toDateString());
+    $(this).addClass('active');
+    $('.randompuzzle-button').removeClass('active')
   });
 
   $('.next-level').click(function(){
@@ -24,6 +34,7 @@ $(function(){
     g.setupLevel(level);
   });
 
+  $('.todayspuzzle-button').addClass('active');
 
 });
 
