@@ -110,9 +110,19 @@ body{
   float:right;
   margin-right:5px;
 }
+.game-message .share{
+  font-size:.3em;
+}
+.game-message .share .puzzle-link{
+  color:#000;
+  width:50%;
+}
 
 @media screen and (max-width:520px){
   .wrapper{
+    width:98%;
+  }
+  .game-message .share .puzzle-link{
     width:98%;
   }
 }

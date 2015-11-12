@@ -4,24 +4,24 @@ function Game(options){
   this.directions = ['left', 'right', 'up', 'down'];
   this.score = 0;
   this.solver = options.solver;
-  this.setup();
-  this.savedGrid = this.grid.serialize();
   this.storageManager = options.storageManager;
-  this.todaysBest = this.storageManager.getTodaysBest();
+ 
+  this.setup(options.seed);  
+  this.savedGrid = this.grid.serialize();  
 }
 
 Game.prototype.newGame = function(){
   this.actuator.clearMessage();
   this.setup();
   this.savedGrid = this.grid.serialize();
-  this.playingDailyPuzzle = false;
 }
 
 Game.prototype.newSeededPuzzle = function(seed){
+  this.seed = seed.toUpperCase();
+  this.puzzleBest = this.storageManager.getPuzzlesBest(this.seed);
   this.actuator.clearMessage();
-  this.setup(seed);
-  this.savedGrid = this.grid.serialize();
-  this.playingDailyPuzzle = true;
+  this.setup(this.seed);
+  this.savedGrid = this.grid.serialize();  
 }
 
 Game.prototype.restart = function(){
@@ -42,16 +42,6 @@ Game.prototype.setup = function(seed){
   this.actuate();
 }
 
-Game.prototype.setupLevel = function(level){
-  this.actuator.clearMessage();
-  this.actuator.clearNextlevel();
-  this.level = level;
-  this.score = 0;
-  this.targetScore = level.targetScore;
-  this.grid = new Grid(level.size);
-  this.parseLevel(level.size, level.levelData);
-  this.actuate();
-}
 
 Game.prototype.addStartTiles = function(){
   for(var x = 0; x < this.size; x++){
@@ -80,11 +70,11 @@ Game.prototype.actuate = function(){
 
   this.over = !hasTiles;
 
-  if(this.over && this.playingDailyPuzzle){
-    this.todaysBest = this.storageManager.getTodaysBest();
-    if(this.todaysBest == null || this.score < this.todaysBest){
-      this.todaysBest = this.score;
-      this.storageManager.setTodaysBest(this.score);
+  if(this.over){
+    this.puzzleBest = this.storageManager.getPuzzlesBest(this.seed);
+    if(this.puzzleBest == null || this.score < this.puzzleBest){
+      this.puzzleBest = this.score;
+      this.storageManager.setPuzzlesBest(this.seed, this.score);
     }
   }
 
@@ -92,10 +82,8 @@ Game.prototype.actuate = function(){
     score: this.score,
     over: this.over,
     won: this.won,
-    puzzleMode: this.puzzleMode,
-    targetScore: this.targetScore,
-    maxScore: this.maxScore,
-    todaysBest: this.todaysBest
+    puzzleBest: this.puzzleBest,
+    puzzleCode: this.seed
   });
 }
 

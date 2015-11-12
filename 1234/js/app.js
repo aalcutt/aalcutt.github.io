@@ -1,9 +1,14 @@
 var g;
 var solver;
 var d = new Date();
+var puzzleSeed = todaysSeed = d.getDay() + "-" + d.getDate() + "-" + d.getFullYear();
+var puzzleHash = window.location.hash;
+var hashSeed = puzzleHash != "" && puzzleHash != "#" ? puzzleHash.replace("#","") : null;
 $(function(){
-  g = new Game({size: 8, actuator: new HTMLActuator(), storageManager: new StorageManager()});
-  g.newSeededPuzzle(d.toDateString());
+ 
+  setSeedOnHash();
+  g = new Game({size: 8, seed: puzzleSeed, actuator: new HTMLActuator(), storageManager: new StorageManager()});
+  g.newSeededPuzzle(puzzleSeed);
   $('.tile-container').on('click', '.tile', function(){
     var x = $(this).attr('x');
     var y = $(this).attr('y');
@@ -14,8 +19,10 @@ $(function(){
   $('.randompuzzle-button').click(function(){
     $('.above-game .randompuzzle-button').addClass('active').addClass('btn-primary');
     $('.todayspuzzle-button').removeClass('active').removeClass('btn-primary')
-    $('.best-score-container-top').hide();
-    g.newGame();
+    Math.seedrandom();
+    puzzleSeed = randomString(10, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    g.newSeededPuzzle(puzzleSeed);
+    window.location.hash = puzzleSeed;
   });
 
 
@@ -24,72 +31,36 @@ $(function(){
   });
 
   $('.todayspuzzle-button').click(function(){
-    g.newSeededPuzzle(d.toDateString());
+    window.location.hash = "";
+    g.newSeededPuzzle(todaysSeed);
     $(this).addClass('active').addClass('btn-primary');
     $('.randompuzzle-button').removeClass('active').removeClass('btn-primary')
-    $('.best-score-container-top').show();
   });
 
-  $('.next-level').click(function(){
-    currentLevel++;
-    var level = levels[currentLevel];
-    g.setupLevel(level);
-  });
-
-  $('.todayspuzzle-button').addClass('active').addClass('btn-primary');
+  $(".game-message .share .puzzle-link").focus(function() { $(this).select(); } );
 
 });
 
-var currentLevel = 1;
+$(window).on('hashchange', function() {
+  setSeedOnHash();
+  g.newSeededPuzzle(puzzleSeed);
+});
 
-var levelData = [
-  null, // just to shift the levels to be consistent
-  [
-    ["1r", "1d", "2u"],
-    ["1u", "2l", "2d"],
-    ["2d", "1u", "3l"]
-  ],
-  [
-    ["2r", "1d", "2d"],
-    ["1u", "1d", "2l"],
-    ["1r", "1u", "2u"]
-  ],
-  [
-    ["1r", "1d", "1d"],
-    ["1r", "1d", "1r"],
-    ["1r", "1r", "1u"]
-  ],
-  [
-    ["2r", "2d", "2l"],
-    ["2d", "2d", "2u"],
-    ["2u", "2r", "2l"]
-  ],
-  [
-    ["2r", "2u", "2l", "3d"],
-    ["2d", "1d", "2u", "1r"],
-    ["1r", "2u", "2l", "2l"],
-    ["3u", "3r", "1d", "2l"]
-  ],
-  [
-    ["1r","2l"],
-    ["1r", "2l"]
-  ]
-];
-
-var levels = {
-  1: {size: 3, targetScore: 8, levelData: levelData[1]},
-  2: {size: 3, targetScore: 10, levelData: levelData[2]},
-  3: {size: 3, targetScore: 9, levelData: levelData[3]},
-  4: {size: 3, targetScore: 12, levelData: levelData[4]},
-  5: {size: 4, targetScore: 17, levelData: levelData[5]},
-  6: {size: 2, targetScore: 2, levelData: levelData[6]}
+function setSeedOnHash(){
+  hash = window.location.hash;
+  hashSeed = hash != "" && hash != "#" ? hash.replace("#","") : null;
+  if(hashSeed && hashSeed != todaysSeed){
+    puzzleSeed = hashSeed;
+    $('.todayspuzzle-button').removeClass('active').removeClass('btn-primary')
+    $('.above-game .randompuzzle-button').addClass('active').addClass('btn-primary');
+  }
+  else{
+    puzzleSeed = todaysSeed;
+    $('.todayspuzzle-button').addClass('active').addClass('btn-primary');
+    $('.above-game .randompuzzle-button').removeClass('active').removeClass('btn-primary')
+  }
 }
 
-function LoadLevel(n){
-  currentLevel = n;
-  var level = levels[n];
-  g.setupLevel(level);
-}
 
 function Solve(){
   var solver = new Solver(g);
@@ -101,4 +72,24 @@ function Solve(){
   console.log(solved)
 
   console.log("max on board: " + solver.maxOnBoard(g))
+}
+
+function GetQueryStringParams(sParam)
+{
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++)
+  {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam)
+      {
+          return sParameterName[1];
+      }
+  }
+}
+
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
 }

@@ -5,6 +5,7 @@ function HTMLActuator(options){
   this.messageContainer = $(".game-message");
   this.nextLevelContainer = $('.next-level');
   this.targetScoreContainer = $(".target-score-container")
+  this.shareContainer = $(".game-message .share")
   this.score = 0;
 }
 
@@ -37,9 +38,10 @@ HTMLActuator.prototype.actuate = function(grid, meta){
     self.tileContainer.append(s);
   });
 
-  self.updateScore(meta.score, meta.targetScore);
+  self.updateScore(meta.score, meta.puzzleBest);
 
   if(meta.over){
+    self.puzzleCode = meta.puzzleCode;
     self.score = meta.score;
     self.maxScore = meta.maxScore;
     if(self.score == self.maxScore){
@@ -48,10 +50,6 @@ HTMLActuator.prototype.actuate = function(grid, meta){
     else{
       self.message(false);
     }
-  }
-
-  if(meta.todaysBest){
-    $('.best-score-container').text(meta.todaysBest);
   }
 }
 
@@ -86,18 +84,12 @@ HTMLActuator.prototype.addTile = function (tile) {
   this.tileContainer.append(wrapper);
 }
 
-HTMLActuator.prototype.updateScore = function(score, targetScore){
+HTMLActuator.prototype.updateScore = function(score, puzzleBest){
   this.clearContainer(this.scoreContainer);
   this.score = score;
   this.scoreContainer.text(score);
-
-  if(targetScore){
-
-    this.targetScore = targetScore;
-    this.clearContainer(this.targetScoreContainer)
-    this.targetScoreContainer.text(targetScore);
-    this.targetScoreContainer.css('display', 'inline-block');
-  }
+  this.puzzleBest = puzzleBest != null ? puzzleBest : "NA";
+  $('.best-score-container').text(this.puzzleBest);
 }
 
 HTMLActuator.prototype.message = function(won){
@@ -116,6 +108,9 @@ HTMLActuator.prototype.message = function(won){
   this.messageContainer.addClass(type);
   this.messageContainer.find('p').text(message);
   this.messageContainer.find('.score').html("Your score: <strong> " + this.score + "</strong>");
+
+  var shareLink = location.protocol+'//'+location.host+location.pathname + "#" + this.puzzleCode;
+  this.shareContainer.find('.puzzle-link').val(shareLink)
 }
 
 HTMLActuator.prototype.clearMessage = function () {

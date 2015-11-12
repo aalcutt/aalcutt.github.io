@@ -28,15 +28,14 @@ StorageManager.prototype.getSavedScores = function(){
   return saved != null ? saved : {};
 }
 
-StorageManager.prototype.getTodaysBest = function(){
-  var saved = this.getSavedScores();
-  var today = d.toDateString();
-  return saved[today] != null ? saved[today] : null;
+StorageManager.prototype.getPuzzlesBest = function(seed){
+   var saved = this.getSavedScores();
+  return saved[seed] != null ? saved[seed] : null;
 }
 
-StorageManager.prototype.setTodaysBest = function(score){
+StorageManager.prototype.setPuzzlesBest = function(seed, score){
   var saved = this.getSavedScores();
-  saved[d.toDateString()] = score;
+  saved[seed] = score;
   this.storage.setItem('savedScores', JSON.stringify(saved));
 }
 
