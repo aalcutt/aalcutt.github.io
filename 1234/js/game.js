@@ -17,7 +17,7 @@ Game.prototype.newGame = function(){
 }
 
 Game.prototype.newSeededPuzzle = function(seed){
-  this.seed = seed.toUpperCase();
+  this.seed = seed.toLowerCase();
   this.puzzleBest = this.storageManager.getPuzzlesBest(this.seed);
   this.actuator.clearMessage();
   this.setup(this.seed);
