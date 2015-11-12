@@ -20,7 +20,7 @@ $(function(){
     $('.above-game .randompuzzle-button').addClass('active').addClass('btn-primary');
     $('.todayspuzzle-button').removeClass('active').removeClass('btn-primary')
     Math.seedrandom();
-    puzzleSeed = randomString(10, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    puzzleSeed = randomString(10, '0123456789abcdefghijklmnopqrstuvwxyz')
     g.newSeededPuzzle(puzzleSeed);
     window.location.hash = puzzleSeed;
   });
