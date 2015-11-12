@@ -1,11 +1,11 @@
 var g;
 var solver;
 var d = new Date();
-var puzzleSeed = todaysSeed = d.getDay() + "-" + d.getDate() + "-" + d.getFullYear();
+var puzzleSeed = todaysSeed = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 var puzzleHash = window.location.hash;
 var hashSeed = puzzleHash != "" && puzzleHash != "#" ? puzzleHash.replace("#","") : null;
 $(function(){
- 
+
   setSeedOnHash();
   g = new Game({size: 8, seed: puzzleSeed, actuator: new HTMLActuator(), storageManager: new StorageManager()});
   g.newSeededPuzzle(puzzleSeed);
