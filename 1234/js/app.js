@@ -1,8 +1,8 @@
 var g;
 var solver;
+var d = new Date();
 $(function(){
-  var d = new Date();
-  g = new Game({size: 8, actuator: new HTMLActuator()});
+  g = new Game({size: 8, actuator: new HTMLActuator(), storageManager: new StorageManager()});
   g.newSeededPuzzle(d.toDateString());
   $('.tile-container').on('click', '.tile', function(){
     var x = $(this).attr('x');
@@ -11,21 +11,23 @@ $(function(){
     g.moveTile(tile);
   });
 
-  $('.above-game .randompuzzle-button').click(function(){
-    $(this).addClass('active');
-    $('.todayspuzzle-button').removeClass('active')
+  $('.randompuzzle-button').click(function(){
+    $('.above-game .randompuzzle-button').addClass('active').addClass('btn-primary');
+    $('.todayspuzzle-button').removeClass('active').removeClass('btn-primary')
+    $('.best-score-container-top').hide();
     g.newGame();
   });
+
 
   $('.tryagain-button').click(function(){
     g.restart();
   });
 
   $('.todayspuzzle-button').click(function(){
-
     g.newSeededPuzzle(d.toDateString());
-    $(this).addClass('active');
-    $('.randompuzzle-button').removeClass('active')
+    $(this).addClass('active').addClass('btn-primary');
+    $('.randompuzzle-button').removeClass('active').removeClass('btn-primary')
+    $('.best-score-container-top').show();
   });
 
   $('.next-level').click(function(){
@@ -34,7 +36,7 @@ $(function(){
     g.setupLevel(level);
   });
 
-  $('.todayspuzzle-button').addClass('active');
+  $('.todayspuzzle-button').addClass('active').addClass('btn-primary');
 
 });
 

@@ -6,13 +6,6 @@ function HTMLActuator(options){
   this.nextLevelContainer = $('.next-level');
   this.targetScoreContainer = $(".target-score-container")
   this.score = 0;
-
-  if(options.puzzleMode){
-
-    this.targetScore = options.level.targetScore;
-
-  }
-
 }
 
 HTMLActuator.prototype.actuate = function(grid, meta){
@@ -47,26 +40,18 @@ HTMLActuator.prototype.actuate = function(grid, meta){
   self.updateScore(meta.score, meta.targetScore);
 
   if(meta.over){
-    if(meta.puzzleMode){
-      if(meta.won)
-      {
-        self.nextLevelContainer.show();
-        self.message(true)
-      }
-      else{
-        self.message(false)
-      }
+    self.score = meta.score;
+    self.maxScore = meta.maxScore;
+    if(self.score == self.maxScore){
+      self.message(true);
     }
     else{
-        self.score = meta.score;
-        self.maxScore = meta.maxScore;
-        if(self.score == self.maxScore){
-          self.message(true);
-        }
-        else{
-          self.message(false);
-        }
+      self.message(false);
     }
+  }
+
+  if(meta.todaysBest){
+    $('.best-score-container').text(meta.todaysBest);
   }
 }
 

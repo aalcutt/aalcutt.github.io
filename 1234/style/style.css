@@ -58,7 +58,7 @@ body{
   font-weight:bold;
   float:left;
 }
-.score-container-top{
+.score-container-top, .best-score-container-top{
   text-align:center;
   width:70px;
   background-color:#dddfdd;

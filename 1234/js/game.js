@@ -6,18 +6,22 @@ function Game(options){
   this.solver = options.solver;
   this.setup();
   this.savedGrid = this.grid.serialize();
+  this.storageManager = options.storageManager;
+  this.todaysBest = this.storageManager.getTodaysBest();
 }
 
 Game.prototype.newGame = function(){
   this.actuator.clearMessage();
   this.setup();
   this.savedGrid = this.grid.serialize();
+  this.playingDailyPuzzle = false;
 }
 
 Game.prototype.newSeededPuzzle = function(seed){
   this.actuator.clearMessage();
   this.setup(seed);
   this.savedGrid = this.grid.serialize();
+  this.playingDailyPuzzle = true;
 }
 
 Game.prototype.restart = function(){
@@ -76,12 +80,11 @@ Game.prototype.actuate = function(){
 
   this.over = !hasTiles;
 
-  if(this.puzzleMode){
-    if(this.over && this.score >= this.targetScore){
-      this.won = true;
-    }
-    else if(this.over && this.score < this.targetScore){
-      this.won = false;
+  if(this.over && this.playingDailyPuzzle){
+    this.todaysBest = this.storageManager.getTodaysBest();
+    if(this.todaysBest == null || this.score < this.todaysBest){
+      this.todaysBest = this.score;
+      this.storageManager.setTodaysBest(this.score);
     }
   }
 
@@ -91,7 +94,8 @@ Game.prototype.actuate = function(){
     won: this.won,
     puzzleMode: this.puzzleMode,
     targetScore: this.targetScore,
-    maxScore: this.maxScore
+    maxScore: this.maxScore,
+    todaysBest: this.todaysBest
   });
 }
 
