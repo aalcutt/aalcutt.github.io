@@ -23,12 +23,12 @@ var game = function(){
 	var _correctGuesses = 0;
 	var playerOscillator;
 
-	$("body").on("mouseup", ".square", function(){
+	$("body").on("mouseup touchend", ".square", function(){
 		$(this).removeClass("active");
 		handleSquareClick($(this));
 	});
 
-	$("body").on("mousedown", ".square",function(){
+	$("body").on("mousedown touchstart", ".square",function(){
 		$(this).addClass("active")
 	});
 
