@@ -1,7 +1,7 @@
 var game;
 var GAME_START_DELAY = 1000;
 var DEBUG = true;
-var context = new AudioContext;
+
 $(function(){
 	game = new game();
 	setTimeout(function(){
