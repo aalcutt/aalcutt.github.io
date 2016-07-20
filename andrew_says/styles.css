@@ -1,0 +1,63 @@
+body{
+	font-family:Arial;
+}
+.container{
+	width:100%;
+	height:100%;
+}
+.square{
+	float:left;
+	-webkit-filter:brightness(50%);
+	-filter:brightness(50%);
+}
+.square:hover{
+	cursor:pointer;
+}
+.width-fifty{
+	width:50%;
+}
+.width-twentyfive{
+	width:25%;
+}
+.height-fifty{
+	height:50%;
+}
+.red{
+	background-color:red;
+}
+.blue{
+	background-color:blue;
+}
+.green{
+	background-color:green;
+}
+.yellow{
+	background-color:yellow;
+}
+.gray{
+	background-color:gray;
+}
+.teal{
+	background-color:#008080;
+}
+.orange{
+	background-color:orange;
+}
+.purple{
+	background-color:purple;
+}
+.active{
+	-webkit-filter:brightness(100%);
+	-filter:brightness(100%);
+}
+.message{
+	float:left;
+	position:absolute;
+	z-index: 2;
+	font-size:50px;
+	font-weight:bold;
+	color:white;
+	top:15%;
+	width:99%;
+	text-align:center;	
+}
