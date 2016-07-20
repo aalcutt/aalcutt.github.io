@@ -23,12 +23,14 @@ var game = function(){
 	var _correctGuesses = 0;
 	var playerOscillator;
 
-	$("body").on("mouseup touchend", ".square", function(){
+	$("body").on("mouseup touchend", ".square", function(e){
+		e.stopPropagation(); e.preventDefault();
 		$(this).removeClass("active");
 		handleSquareClick($(this));
 	});
 
-	$("body").on("mousedown touchstart", ".square",function(){
+	$("body").on("mousedown touchstart", ".square",function(e){
+		e.stopPropagation(); e.preventDefault();
 		$(this).addClass("active")
 	});
 
@@ -112,7 +114,7 @@ var game = function(){
 			setTimeout(function(){
 				$("." + color).toggleClass("active");
 			}, COLOR_BLINK_DURATION)
-		}, (COLOR_BLINK_DURATION * i) + 10);		
+		}, (COLOR_BLINK_DURATION * i) + 200);		
 	}
 
 	function increaseDifficulty(mode){
