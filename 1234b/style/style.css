@@ -1,0 +1,125 @@
+body{
+  font-family:Arial, sans-serif;
+  font-size:16px;
+  background-color:#F6F6F6;
+}
+.wrapper{
+  margin-left:auto;
+  margin-right:auto;
+  width:650px;
+  margin-top:20px;
+}
+.game-container{
+  position:relative;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color:#dddfdd;
+}
+.tile-container table td{
+  border:1px solid black;
+  height:75px;
+  width:75px;
+  padding: 1px;
+  text-align:center;
+}
+.tile-container .tile:hover{
+  cursor:pointer;
+}
+.tile-container table{
+
+  width:100%
+}
+.tile{
+  position:relative;
+  font-size:20px;
+}
+.up-arrow{
+  position:absolute;
+  top:0;
+  left:34;
+}
+.right-arrow{
+  position:absolute;
+  right:3;
+  top:23px;
+}
+.down-arrow{
+  position:absolute;
+  bottom:3;
+  left:34;
+}
+.left-arrow{
+  position:absolute;
+  left:3;
+  top:23px;
+}
+.title{
+  font-size:60px;
+  font-weight:bold;
+  float:left;
+}
+.scores{
+  float:right;
+}
+.game-message{
+  display:none;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  z-index:100;
+  text-align:center;
+  width:100%;
+  height:100%;
+  background-color:rgba(100,100,100,0.75);
+  padding-top:200px;
+  font-size:46px;
+  color:#fff;
+}
+.game-message.game-over, .game-message.game-won{
+  display:block;
+}
+.next-level{
+  display:none;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.game-message .lower strong{
+  color:#0f0;
+}
+.score-amazing, .score-great, .score-average, .score-bad{
+  display:none;
+}
+.above-game .randompuzzle-button, .above-game .todayspuzzle-button{
+  float:right;
+  margin-right:5px;
+}
+.game-message .share{
+  font-size:.3em;
+}
+.game-message .share .puzzle-link{
+  color:#000;
+  width:50%;
+}
+
+@media screen and (max-width:520px){
+  .wrapper{
+    width:98%;
+  }
+  .game-message .share .puzzle-link{
+    width:98%;
+  }
+}
+.fa-chevron-down, .fa-chevron-up, .fa-chevron-left, .fa-chevron-right{
+  color:black;
+}
+.fa-chevron-up, .fa-chevron-down{
+  height:14px;
+}
