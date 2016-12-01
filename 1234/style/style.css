@@ -1,7 +1,9 @@
 body{
   font-family:Arial, sans-serif;
   font-size:16px;
-  background-color:#F6F6F6;
+  background-color:#F2F1F7;
+  color:#77688C;
+  /*https://coolors.co/4d9de0-e15554-e1bc29-3bb273-cdc8e1*/
 }
 .wrapper{
   margin-left:auto;
@@ -16,7 +18,7 @@ body{
   background-color:#dddfdd;
 }
 .tile-container table td{
-  border:1px solid black;
+  border:1px solid #41395F;
   height:75px;
   width:75px;
   padding: 1px;
@@ -58,17 +60,10 @@ body{
   font-weight:bold;
   float:left;
 }
-.score-container-top, .best-score-container-top{
-  text-align:center;
-  width:70px;
-  background-color:#dddfdd;
-  border-radius: 5px;
-  padding:5px;
-  margin-top:5px;
-  margin-bottom:5px;
-  margin-right:5px;
+.scores{
   float:right;
-  font-size:16px;
+  font-weight:bold;
+  text-align:right;
 }
 .game-message{
   display:none;
@@ -101,7 +96,7 @@ body{
   user-select: none;
 }
 .game-message .lower strong{
-  color:#0f0;
+  color:#E1BC29;
 }
 .score-amazing, .score-great, .score-average, .score-bad{
   display:none;
@@ -125,4 +120,23 @@ body{
   .game-message .share .puzzle-link{
     width:98%;
   }
+}
+.fa-chevron-up, .fa-chevron-down{
+  height:14px;
+}
+.value-1{
+  color: #4D9DE0;
+}
+.value-2{
+  color:#3BB273;
+}
+.value-3{
+  color:#E1BC29;
+}
+.value-4{
+  color:#E15554;
+}/*7768AE*/
+.btn-primary{
+  border-color:#41395F !important;
+  background-color:#7768AE !important;
 }
