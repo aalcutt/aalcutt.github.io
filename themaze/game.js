@@ -9,24 +9,15 @@ var hiddenCode = "AF7B0-N459A-KLUP1";
 var map;
 var mapWidth = 100;
 var mapHeight = 100;
-
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
-
-var myrandom = new Math.seedrandom("12345");
-var shuffledCodeArray = hiddenCode.replaceAll("-","").split('').sort(function(){return 0.5-myrandom.quick()});
+var shuffledCodeArray = null;
 var gameWasLoaded = false;
 var collectedLetterCoords = [];
 
 $(function() {
-
+  var myrandom = new Math.seedrandom("12345");
+  shuffledCodeArray = hiddenCode.replaceAll("-","").split('').sort(function(){return 0.5-myrandom.quick()});
   var savedState = LoadState();
-  if(!savedState){
-      alert("Welcome to The Maze.\n\nHidden in these walls are the first 15 characters of the code.\n\nWill you be able to find them?");
-  }
-  else{
+  if(savedState){
     player = savedState.player;
     collectedCode = savedState.collectedCode;
     collectedLetterCoords = savedState.collectedLetterCoords;
@@ -46,6 +37,12 @@ $(function() {
   });
   $("#code").text(collectedCode);
   LoadMap();
+
+  if(!gameWasLoaded){
+    setTimeout(function(){
+      alert("Welcome to The Maze.\n\nHidden in these walls are the first 15 characters of the code.\n\nWill you be able to find them?")
+    }, 500);
+  }
 });
 
 function MovePlayer(input){
@@ -132,6 +129,10 @@ function CreateIconHtml(type) {
       return "";
     }
 
+    if(type == null || type == undefined){
+      return "E"
+    }
+
     if(type == "wall"){
       iconName = "fa-database"
     }
@@ -188,31 +189,37 @@ function LoadMap() {
 
 function DrawMapGrid() {
     var mapString = "<table>";
-    var middleOfScreen = {x: 2, y: 2};
+    var middleOfScreen = {x: 3, y: 3};
     var offSetY = 0;
     var offSetX = 0;
 
     if (player.y > middleOfScreen.y) {
-        if(player.y < (mapHeight - 2) ){
-            offSetY = player.y - 2;
-        }
-        else if (player.y == mapHeight - 2) {
+        if(player.y < (mapHeight - 3) ){
             offSetY = player.y - 3;
+        }
+        else if(player.y == mapHeight - 2){
+          offSetY = player.y - 5;
+        }
+        else if (player.y == mapHeight - 3) {
+            offSetY = player.y - 4;
         }
     }
 
     if (player.x > middleOfScreen.x) {
-       if (mapWidth > 5 && player.x < (mapWidth - 2)) {
-           offSetX = player.x - 2;
+       if (player.x < (mapWidth - 3)) {
+           offSetX = player.x - 3;
        }
        else if (player.x == mapWidth - 2) {
-           offSetX = player.x - 3;
+           offSetX = player.x - 5;
+       }
+       else if (player.x == mapWidth - 3) {
+           offSetX = player.y - 4;
        }
    }
 
-    for (var y = 0; y < 5; y++) {
+    for (var y = 0; y < 7; y++) {
         mapString += "<tr>";
-        for (var x = 0; x < 5; x++) {
+        for (var x = 0; x < 7; x++) {
             var xOffset = offSetX + x;
             var yOffset = offSetY + y;
             var tileType = map[xOffset][yOffset];
@@ -305,3 +312,8 @@ function AlreadyFoundThisCode(x, y){
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
 }
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
