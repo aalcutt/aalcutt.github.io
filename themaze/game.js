@@ -4,29 +4,48 @@ var player = {
   x: 1,
   y: 1
 }
-var collectedCode = "_____-_____-_____-_____";
-var hiddenCode = "AF7B0-N459A-KLUP1-6781Z";
+var collectedCode = "_____-_____-_____";
+var hiddenCode = "AF7B0-N459A-KLUP1";
 var map;
 var mapWidth = 100;
 var mapHeight = 100;
-var MAP_VIEWPORT_SIZE = 5;
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 var myrandom = new Math.seedrandom("12345");
-var shuffledCodeArray = hiddenCode.split('').sort(function(){return 0.5-myrandom.quick()});
+var shuffledCodeArray = hiddenCode.replaceAll("-","").split('').sort(function(){return 0.5-myrandom.quick()});
+var gameWasLoaded = false;
+var collectedLetterCoords = [];
 
 $(function() {
-    $('body').on('keyup', function(e) {
-        var keyCode = e.which;
-        var input = ConvertKeyToInput(keyCode);
-        if (input != null) {
-            MovePlayer(input);
-        }
-    });
-    $('#controls li').click(function () {
-        var input = $(this).data("control");
-        MovePlayer(input);
-    });
 
-    LoadMap();
+  var savedState = LoadState();
+  if(!savedState){
+      alert("Welcome to The Maze.\n\nHidden in these walls are the first 15 characters of the code.\n\nWill you be able to find them?");
+  }
+  else{
+    player = savedState.player;
+    collectedCode = savedState.collectedCode;
+    collectedLetterCoords = savedState.collectedLetterCoords;
+    gameWasLoaded = true;
+  }
+
+  $('body').on('keyup', function(e) {
+      var keyCode = e.which;
+      var input = ConvertKeyToInput(keyCode);
+      if (input != null) {
+          MovePlayer(input);
+      }
+  });
+  $('#controls li').click(function () {
+      var input = $(this).data("control");
+      MovePlayer(input);
+  });
+  $("#code").text(collectedCode);
+  LoadMap();
 });
 
 function MovePlayer(input){
@@ -54,6 +73,7 @@ function MovePlayer(input){
     if(whatsAtFuture != "wall" && whatsAtFuture != ""){
       var letterCode = whatsAtFuture;
       AddCollectedLetter(whatsAtFuture);
+      collectedLetterCoords.push({x: future.x, y: future.y});
     }
 
     map[player.x][player.y] = "";
@@ -61,6 +81,11 @@ function MovePlayer(input){
     player.y = future.y;
     map[player.x][player.y] = "player";
     Update();
+    SaveState();
+
+    if(collectedLetterCoords.length + 2 == 17){
+      alert("Congratulations you found the entire code!\n" + collectedCode);
+    }
   }
 }
 
@@ -99,7 +124,6 @@ function Update() {
 }
 
 function CreateIconHtml(type) {
-
     var iconName = "";
     var style = "";
     var color = "";
@@ -116,7 +140,8 @@ function CreateIconHtml(type) {
       color = "#00f"
     }
     else{
-      return type;
+      color = "#f00";
+      return "<span style='color:#f00'>" + type + "</span>";
     }
 
     if (color != null && color != "") {
@@ -126,15 +151,22 @@ function CreateIconHtml(type) {
 }
 
 function LoadMap() {
-
-  map = new Array(mapWidth);;
-
   var mapDataSplit = mapData.split(",")
   var counter = 0;
+  map = new Array(mapWidth);
   for(var i = 0; i < mapWidth; i++){
     map[i] = new Array(mapHeight);
     for(var j = 0; j < mapHeight; j++){
       var tile = mapDataSplit[counter];
+
+      if(gameWasLoaded){
+        if(tile == "player"){
+          tile = "";
+        }
+        if(tile == "code" && AlreadyFoundThisCode(i, j)){
+          tile = "";
+        }
+      }
 
       if(tile == "code"){
         tile = GetLetterForCodeTile();
@@ -144,13 +176,14 @@ function LoadMap() {
       counter++;
     }
   }
+
+
+  if(gameWasLoaded){
+    map[player.x][player.y] = "player"
+  }
+
   DrawMapGrid();
   mapDrawn = true;
-
-  if (mapDrawn == false) {
-      console.log("map isn't finished drawing.")
-      return;
-  }
 }
 
 function DrawMapGrid() {
@@ -182,7 +215,9 @@ function DrawMapGrid() {
         for (var x = 0; x < 5; x++) {
             var xOffset = offSetX + x;
             var yOffset = offSetY + y;
-            var icon = CreateIconHtml(map[xOffset][yOffset]);
+            var tileType = map[xOffset][yOffset];
+            var icon = CreateIconHtml(tileType);
+
             mapString += "<td pos-x='{x}' pos-y='{y}'>{icon}</td>".replace("{x}", xOffset).replace("{y}", yOffset).replace("{icon}", icon);
         }
         mapString += "</tr>";
@@ -208,7 +243,6 @@ function AddCollectedLetter(letter){
    }
  }
 
-  console.log(collectedCode);
   $("#code").text(collectedCode);
 }
 
@@ -218,11 +252,54 @@ function GetMapElementForPosition(x, y) {
 }
 
 function GetLetterForCodeTile(){
-  var shuffledCodeArray = hiddenCode.split('').sort(function(){return 0.5-myrandom.quick()});
   if(shuffledCodeArray.length > 0){
     return shuffledCodeArray.pop();
   }
   return null;
+}
+
+function cheat(x, y){
+  player.x = x;
+  player.y = y;
+  Update();
+}
+
+function SaveState(){
+  if(window.localStorage){
+    var saved = {
+      player: player,
+      collectedCode: collectedCode,
+      collectedLetterCoords: collectedLetterCoords
+    }
+    window.localStorage.setItem("savedMaze", JSON.stringify(saved));
+  }
+}
+
+function LoadState(){
+  if(!window.localStorage){
+    return null;
+  }
+  var savedString = window.localStorage.getItem("savedMaze");
+  if(!savedString){
+    return null;
+  }
+
+  try{
+    var saved = JSON.parse(savedString);
+    return saved;
+  }
+  catch(e){
+    return null;
+  }
+}
+
+function AlreadyFoundThisCode(x, y){
+  for(var i = 0; i < collectedLetterCoords.length; i++){
+    if(collectedLetterCoords[i].x == x && collectedLetterCoords[i].y == y){
+      return true;
+      break;
+    }
+  }
 }
 
 String.prototype.replaceAt=function(index, character) {

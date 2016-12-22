@@ -31,6 +31,9 @@ body {
   text-align: center;
   width: 25%;
 }
+#controls ul li:active {
+  color: #00f;
+}
 #code {
   font-size: 20px;
   text-align: center;
@@ -40,6 +43,10 @@ td {
   width: 20%;
   height: 20%;
   text-align: center;
+}
+td span {
+  font-size: 34px;
+  weight: bold;
 }
 ul {
   list-style: none;
