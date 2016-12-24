@@ -213,7 +213,7 @@ function DrawMapGrid() {
            offSetX = player.x - 5;
        }
        else if (player.x == mapWidth - 3) {
-           offSetX = player.y - 4;
+           offSetX = player.x - 4;
        }
    }
 
