@@ -5,7 +5,7 @@ var player = {
   y: 1
 }
 var collectedCode = "_____-_____-_____";
-var hiddenCode = "AF7B0-N459A-KLUP1";
+var hiddenCode = "7XYYP" + "-" + "2HDZ9" + "-" + "99CZD";
 var map;
 var mapWidth = 100;
 var mapHeight = 100;
