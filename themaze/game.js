@@ -278,7 +278,7 @@ function SaveState(){
       collectedCode: collectedCode,
       collectedLetterCoords: collectedLetterCoords
     }
-    window.localStorage.setItem("savedMaze", JSON.stringify(saved));
+    window.localStorage.setItem("savedMaze2", JSON.stringify(saved));
   }
 }
 
@@ -286,7 +286,7 @@ function LoadState(){
   if(!window.localStorage){
     return null;
   }
-  var savedString = window.localStorage.getItem("savedMaze");
+  var savedString = window.localStorage.getItem("savedMaze2");
   if(!savedString){
     return null;
   }
