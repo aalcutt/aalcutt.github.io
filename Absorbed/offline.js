@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1484599599,
+	"version": 1484604012,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -8,6 +8,8 @@
 		"images/bubble-sheet0.png",
 		"images/tiledbackground.png",
 		"images/leftthumbtack-sheet0.png",
+		"images/leftthumbtack-sheet1.png",
+		"images/topthumbtack-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",

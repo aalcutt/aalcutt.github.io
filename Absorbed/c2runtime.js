@@ -18815,6 +18815,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetSize,
 	cr.system_object.prototype.cnds.Compare,
 	cr.behaviors.Bullet.prototype.acts.SetAngleOfMotion,
+	cr.plugins_.Sprite.prototype.acts.SetAnimSpeed,
 	cr.system_object.prototype.cnds.IsGroupActive,
 	cr.plugins_.Touch.prototype.cnds.IsInTouch,
 	cr.plugins_.Sprite.prototype.acts.MoveAtAngle,
@@ -18823,14 +18824,18 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.exps.Y,
 	cr.plugins_.Touch.prototype.exps.X,
 	cr.plugins_.Touch.prototype.exps.Y,
+	cr.plugins_.Touch.prototype.cnds.OnTapGestureObject,
+	cr.system_object.prototype.acts.GoToLayout,
+	cr.system_object.prototype.acts.SetLayerVisible,
+	cr.system_object.prototype.acts.SetVar,
+	cr.system_object.prototype.acts.SetTimescale,
 	cr.plugins_.Sprite.prototype.cnds.OnCollision,
 	cr.behaviors.Pin.prototype.cnds.IsPinned,
 	cr.behaviors.Pin.prototype.acts.Pin,
 	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
-	cr.system_object.prototype.acts.SetVar,
 	cr.plugins_.Text.prototype.acts.SetText,
 	cr.plugins_.Sprite.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.Destroy,
-	cr.system_object.prototype.acts.SetLayerVisible
+	cr.plugins_.Sprite.prototype.acts.SubInstanceVar
 ];};
 
