@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+header {
+  text-align: center;
+  margin: 0;
+  background: rgba(33, 125, 187, 0.8);
+  color: #fff;
+  height: 200px;
+}
+header h1 {
+  margin: 0;
+}
+#projects {
+  padding: 10px 5px;
+  background-color: #f2f2f5;
+  text-align: center;
+}
+#projects .heading {
+  text-align: center;
+  font-weight: 200;
+}
+#projects .project {
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.15);
+  height: 200px;
+  background-color: #fff;
+}
+#projects .project .project-title {
+  margin-top: 10px;
+  font-size: 1.17em;
+}
+#projects .project .project-image {
+  float: left;
+  width: 200px;
+  height: 200px;
+}
+#projects .project .project-image img {
+  width: 200px;
+  height: 200px;
+}
+#projects .project .project-info {
+  width: 660px;
+  margin-left: 200px;
+  padding: 10px 20px 0 20px;
+}
+#projects .project h3 {
+  margin: 0;
+  font-weight: 300;
+  font-size: 1.2em;
+}

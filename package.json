@@ -1,0 +1,23 @@
+{
+  "name": "aalcutt.github.io",
+  "version": "1.0.0",
+  "description": "<div>\r <h3>1234</h3>\r <p>A simple puzzle game that started as a clone of 2048. <a href=\"http://aalcutt.github.io/1234/\">Play it here</a></p>\r </div>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aalcutt/aalcutt.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aalcutt/aalcutt.github.io/issues"
+  },
+  "homepage": "https://github.com/aalcutt/aalcutt.github.io#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "less": "^2.7.2"
+  }
+}
