@@ -27,13 +27,18 @@ $("td").on("click", function(){
     updateBoard(x, y);
 });
 
+$(".levels li").on("click", function(){
+    var level = $(this).text();
+    loadGame(level);
+});
+
 function updateBoard(x, y){
     var currentColorCode = $(`td[data-x='${x}'][data-y='${y}']`).data("color");
     var colorCode = parseInt(currentColorCode);
     colorCode = getNextColorCode(colorCode);
     
     updateColor(x, y, colorCode);
-
+    var winning = true;
     for(var i = 0; i < coordinatesToChange.length; i++){
         var otherX = x + coordinatesToChange[i][0];
         var otherY = y + coordinatesToChange[i][1];
@@ -42,7 +47,14 @@ function updateBoard(x, y){
             currentColorCode = exists.data("color");
             colorCode = getNextColorCode(currentColorCode);
             updateColor(otherX, otherY, colorCode);
+            if(colorCode != 3){
+                winning = false;
+            }
         }
+    }
+
+    if(winning){
+
     }
 }
 
@@ -71,15 +83,20 @@ function loadGame(level){
     }
 }
 
+var currentLevel = 1;
+var numberLevels = 3;
+
+function displayNextLevel(){
+    currentLevel++;
+    loadGame();
+}
+
 $(function(){
     loadGame(1);
 })
 
 
-$(".levels li").on("click", function(){
-    var level = $(this).text();
-    loadGame(level);
-});
+
 
 var levels = {
     "1":  [
@@ -99,5 +116,29 @@ var levels = {
         [3,2,3,1],
         [1,3,2,3],
         [1,1,3,2]
-    ]
+    ],
+     "4": [
+        [1,2,2,1],
+        [2,3,1,2],
+        [3,3,3,1],
+        [4,3,1,3]
+    ],
+     "5": [
+        [1,3,3,1],
+        [3,1,1,3],
+        [3,1,1,3],
+        [1,3,3,1]
+    ],
+     "6": [
+        [1,2,2,1],
+        [2,1,1,2],
+        [2,1,1,2],
+        [1,2,2,1]
+    ],
+     "7": [
+        [2,1,1,1],
+        [1,3,2,1],
+        [1,2,3,1],
+        [1,1,1,2]
+    ],
 }
