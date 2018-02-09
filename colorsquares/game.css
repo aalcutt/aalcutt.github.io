@@ -1,10 +1,53 @@
+html{
+    font-family: 'Roboto', sans-serif;
+    font-size:16px;
+}
+.container{
+    width:442px;
+    margin-left:auto;
+    margin-right:auto;
+}
+table{
+    background-color:#000;
+    border-radius:6px;
+}
 td{
     width:100px;
     height:100px;
-    border:1px solid black;
+    border:3px solid #fff;
+    border-radius:6px;
 }
 .levels li{
     display:inline;
     margin-right:5px;
     text-decoration:underline;
+}
+.levels li:hover{
+    cursor:pointer;
+}
+.levels .winner{
+    display:none;
+}
+.levels .next{
+    display:none;
+}
+.winner-overlay{
+    display:none;
+    position:absolute;
+    background-color:rgba(0,0,0,.6);
+    color:#fff;
+    text-align:center;
+    width:100%;
+    height:100%;
+    top:0;
+}
+
+@media(max-width: 375px){
+    .container{
+        width:359px;
+    }
+    td{
+        width:87px;
+        height:87px;
+    }
 }

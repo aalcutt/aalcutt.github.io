@@ -1,51 +1,52 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="game.css" />
+    <title>Color Squares</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="game.css" />    
 </head>
 <body>
-    <table class="board">
-        <tr>
-            <td data-x="1" data-y="1"></td>
-            <td data-x="1" data-y="2"></td>
-            <td data-x="1" data-y="3"></td>
-            <td data-x="1" data-y="4"></td>
-        </tr>
-        <tr>
-            <td data-x="2" data-y="1"></td>
-            <td data-x="2" data-y="2"></td>
-            <td data-x="2" data-y="3"></td>
-            <td data-x="2" data-y="4"></td>
-        </tr>
-        <tr>
-            <td data-x="3" data-y="1"></td>
-            <td data-x="3" data-y="2"></td>
-            <td data-x="3" data-y="3"></td>
-            <td data-x="3" data-y="4"></td>
-        </tr>
-        <tr>
-            <td data-x="4" data-y="1"></td>
-            <td data-x="4" data-y="2"></td>
-            <td data-x="4" data-y="3"></td>
-            <td data-x="4" data-y="4"></td>
-        </tr>
-    </table>
-    <p>
-        Clicking a square changes its color to the next. From blue to red to green.
-        Squares above, to left, to the right, and below will change colors as well.
-        Try to turn all squares green.
-    </p>
-    <div class="levels">
-        <p>Levels</p>
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-        </ul>
+    <div class="container">
+        <table class="board">
+            <tr>
+                <td data-x="1" data-y="1"></td>
+                <td data-x="1" data-y="2"></td>
+                <td data-x="1" data-y="3"></td>
+                <td data-x="1" data-y="4"></td>
+            </tr>
+            <tr>
+                <td data-x="2" data-y="1"></td>
+                <td data-x="2" data-y="2"></td>
+                <td data-x="2" data-y="3"></td>
+                <td data-x="2" data-y="4"></td>
+            </tr>
+            <tr>
+                <td data-x="3" data-y="1"></td>
+                <td data-x="3" data-y="2"></td>
+                <td data-x="3" data-y="3"></td>
+                <td data-x="3" data-y="4"></td>
+            </tr>
+            <tr>
+                <td data-x="4" data-y="1"></td>
+                <td data-x="4" data-y="2"></td>
+                <td data-x="4" data-y="3"></td>
+                <td data-x="4" data-y="4"></td>
+            </tr>
+        </table>
+        <p>
+            Click a block to change it's and adajcent blocks colors. Try to turn all squares green.
+        </p>
+        <div class="levels">          
+            <p>Levels</p>
+             <ul>
+                <li>1</li>
+            </ul>
+        </div>
+       
+    </div>
+     <div class="winner-overlay">
+        <h2>CORRECT!</h2>
+        <p class="next">Next Level</p>
     </div>
 <script
   src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
