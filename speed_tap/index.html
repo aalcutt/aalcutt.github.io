@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1m user-scalable=no" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff
+      }
+      #game {
+        height: calc(100vh - 10px);
+        width: calc(100vw - 10px);
+        display: flex;
+        flex-direction: row;
+        grid-gap: 80px;
+        padding: 5px;
+        align-items: center;
+      }
+      #instruction {
+        height: 100vh;
+        width: 80px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 45%;
+      }
+      .button {
+        height: 100%;
+        border: 3px solid black;
+        display: flex;
+        flex-grow: 1;
+        border-radius: 5px;
+      }
+      .button:active {
+        background-color: black;
+      }
+      .button:active ~ #instruction {
+        color: #ffffff;
+      }
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+  </head>
+  <body>
+    <div id="game">
+      <div class="button left"></div>
+      <div class="button right"></div>
+      <div id="instruction">Left</div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
